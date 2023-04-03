@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>Acortador de URLs</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body class="bg-dark">
+		<div class="container">
+			<h1>Acortador de URL</h1>
+
+			<form method="POST" action="/shorten">
+				<div class="form-group">
+					<label for="url">URL aqui:</label>
+					<input type="text" class="form-control" name="url" id="url">
+				</div>
+				<button type="submit" class="btn btn-primary">Acortar</button>
+			</form>
+
+			{{ if .URLs }}
+				<h2>URLs Acortadas:</h2>
+
+				<ul class="list-group">
+					{{ range .URLs }}
+						<li class="list-group-item">
+							<a href="{{ .Original }}" target="_blank">{{ .Shortened }}</a> ({{ .Original }})
+						</li>
+					{{ end }}
+				</ul>
+			{{ end }}
+			<script type="text/javascript">
+				if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+				  window.location.href = "{{.MobileURL}}";
+				}
+			  </script>
+		</div>
+	</body>
+</html>
